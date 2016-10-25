@@ -64,7 +64,8 @@ module.exports = grunt => {
         pug: {
             compile: {
                 files: {
-                    'dist/index.html': ['app/*.pug']
+                    'dist/index.html': ['app/index.pug'],
+                    'dist/test.html': ['app/test.pug']
                 }
             }
         }
