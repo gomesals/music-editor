@@ -1,0 +1,77 @@
+.lengthCtnr{
+    margin: -60px auto 0;
+    width: $curLenSize;
+}
+.curLen1 {
+    position: relative;
+    // margin-top: -60px;
+    // margin-left: 167px;
+    // float: left;
+    width: $curLenSize;
+    height: $curLenSize;
+    border-top-left-radius: $curLenSize;
+    border-top-right-radius: $curLenSize;
+    border-bottom-right-radius: $curLenSize;
+    border-bottom-left-radius: $curLenSize;
+    background-color: rgb(193, 241, 236);
+}
+
+.curLen2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip: rect(0px $curLenSize $curLenSize ($curLenSize/2));
+    width: $curLenSize;
+    height: $curLenSize;
+    border-top-left-radius: $curLenSize;
+    border-top-right-radius: $curLenSize;
+    border-bottom-right-radius: $curLenSize;
+    border-bottom-left-radius: $curLenSize;
+}
+
+.curLen3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip: rect(0px ($curLenSize/2) $curLenSize 0px);
+    width: $curLenSize;
+    height: $curLenSize;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-top-left-radius: $curLenSize;
+    border-top-right-radius: $curLenSize;
+    border-bottom-right-radius: $curLenSize;
+    border-bottom-left-radius: $curLenSize;
+    background-color: rgb(38, 166, 154);
+}
+
+.curLen4 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip: rect(0px $curLenSize $curLenSize ($curLenSize/2));
+    width: $curLenSize;
+    height: $curLenSize;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-top-left-radius: $curLenSize;
+    border-top-right-radius: $curLenSize;
+    border-bottom-right-radius: $curLenSize;
+    border-bottom-left-radius: $curLenSize;
+}
+
+.curLen5 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip: rect(0px ($curLenSize/2) $curLenSize 0px);
+    width: $curLenSize;
+    height: $curLenSize;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    border-top-left-radius: $curLenSize;
+    border-top-right-radius: $curLenSize;
+    border-bottom-right-radius: $curLenSize;
+    border-bottom-left-radius: $curLenSize;
+    background-color: rgb(38, 166, 154);
+}

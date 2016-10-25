@@ -1,0 +1,96 @@
+@import 'vendors/materialize/materialize';
+@import 'vendors/font-awesome/_font-awesome.scss';
+@import 'variables';
+@import 'length';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    overflow-y: visible;
+    font-size: 14px;
+}
+
+body {
+    background-color: $bgColor;
+}
+
+select {
+    display: inline-block !important;
+}
+
+.openAudio {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    color: $white;
+    border-radius: 5px;
+    background-color: $accent;
+
+    span {
+        margin-left: 10px;
+    }
+}
+
+.selectFile {
+    width: 130px;
+    height: 130px;
+    padding: 20px;
+    // display: block;
+    font-size: 16px;
+
+    div {
+        margin-top: 15px;
+    }
+}
+
+#hasFile {
+    display: none;
+}
+
+#fileOpen {
+    display: none;
+    margin-top: 20px;
+
+    .activator {
+        cursor: pointer;
+    }
+
+    #playBtn {
+        // margin-top: -62px;
+    }
+}
+
+.np {
+    padding: 0 !important;
+}
+
+#titleShow {
+    width: 100%;
+    background-color: rgba(0,0,0,.7);
+}
+
+.artistShow {
+    font-size: 14px;
+}
+
+#lyricsShow {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid darken($white, 10%);
+}
+
+#labelGenre {
+    top: 0;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.btn-full {
+    width: 100%;
+}
