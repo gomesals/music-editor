@@ -7,40 +7,6 @@ var songFile = null;
 $('.modal-trigger').leanModal();
 $(".button-collapse").sideNav();
 
-// $(".openAudio").click(function() {
-//     chrome.fileSystem.chooseEntry({
-//         type: 'openFile',
-//         accepts: [
-//             {
-//                 description: 'MP3 files (*.mp3)',
-//                 extensions: ['mp3']
-//             }
-//         ]
-//     }, function(fileEntry) {
-//         if (!fileEntry) {
-//             $("#res").html('nada');
-//             return;
-//         }
-//         $("#noFile").hide();
-//         $("#fileOpen").show();
-//         $("#hasFile").show();
-//         fileEntry.file(function(file) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 var scope = $("#fileOpen").scope();
-//                 scope.$apply(function() {
-//                     scope.play = false;
-//                 });
-//                 clearTime();
-//                 document.getElementById('playMusic').pause();
-//                 $("#playMusic").prop('src', e.target.result);
-//                 $("#res").html(e.target.result);
-//             };
-//             reader.readAsDataURL(file);
-//         });
-//     });
-// });
-
 app.controller('musicCtrl', [
     '$scope',
     function($scope, $sce) {
@@ -98,8 +64,6 @@ app.controller('musicCtrl', [
             document.getElementById('playMusic').volume = changeTo;
         }
         $scope.write = function() {
-            // var file = document.getElementById('file');
-            // return false;
             var songReader = new FileReader();
             songReader.onload = function() {
                 var writer = new ID3Writer(songReader.result);
@@ -130,8 +94,6 @@ app.controller('musicCtrl', [
                 console.error('Song Reader error', songReader.error);
             };
             songReader.readAsArrayBuffer(document.getElementById('file').files[0]);
-
-
         }
     }
 ]);
@@ -195,24 +157,3 @@ $("#file").change(function() {
     };
     reader.readAsDataURL(file);
 });
-// function writeM (arrayBuffer){
-//     var writer = new ID3Writer(arrayBuffer);
-// writer.setFrame('TIT2', 'Home')
-//       .setFrame('TPE1', 'cantor'.split(','))
-//       .setFrame('TPE2', 'Eminem')
-//       .setFrame('TALB', 'Friday Night Lights')
-//       .setFrame('TYER', 2004)
-//       .setFrame('TRCK', '6/8')
-//       .setFrame('TPOS', '1/2')
-//       .setFrame('TCON', 'genero'.split(','))
-//       .setFrame('USLT', 'This is unsychronised lyrics')
-//     //   .setFrame('APIC', coverArrayBuffer);
-// writer.addTag();
-//
-// // now you can save it to file as you wish
-// // var arrayBuffer = writer.arrayBuffer;
-// // var blob = writer.getBlob();
-// // var url = writer.getURL();
-//
-// saveAs(writer.getBlob(), 'song with tags.mp3');
-// }
