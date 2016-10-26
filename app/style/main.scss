@@ -94,3 +94,10 @@ select {
 .btn-full {
     width: 100%;
 }
+
+textarea{
+    margin: 10px 0 !important;
+    min-height: 200px !important;
+    max-height: 500px !important;
+    overflow-y: auto !important;
+}

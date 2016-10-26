@@ -1,5 +1,5 @@
+// TODO: Drag & Drop
 'use strict';
-// var jsmediatags = window.jsmediatags;
 var app = angular.module('myApp', []);
 var musicPosition = null;
 var songFile = null;
@@ -24,14 +24,6 @@ app.controller('musicCtrl', [
         $scope.play = false;
         $scope.songVol = 10;
         $scope.song = {
-        //     title: 'Musica',
-        //     artist: 'Cantor',
-        //     albumArtist: 'cantor legal',
-        //     album: 'Album',
-        //     year: '2016',
-        //     track: '3',
-        //     genre: 'genero 1',
-        //     lyrics: 'Letra maneira da musica' // TODO: it does not show with break lines
         };
 
         $scope.audioActions = function() {
@@ -80,7 +72,6 @@ app.controller('musicCtrl', [
 
             $scope.song['title'] = tags.title ? tags.title : '';
             $scope.song['artist'] = tags.artist ? tags.artist : '';
-            // $scope.song['albumArtist'] = tags.TPE2 ? tags.TPE2.data : '';
             $scope.song['album'] = tags.album ? tags.album : '';
             $scope.song['year'] = tags.year ? tags.year : '';
             $scope.song['track'] = tags.track ? tags.track : '';
@@ -88,18 +79,18 @@ app.controller('musicCtrl', [
             $scope.song['lyrics'] = tags.lyrics ? tags.lyrics.U : "";
 
             var image = tags.picture;
+            document.getElementById('coverShow').setAttribute('src', '');
             if (image) {
                 var base64String = "";
                 for (var i = 0; i < image.data.length; i++) {
                     base64String += String.fromCharCode(image.data[i]);
                 }
                 var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
-                document.getElementById('cover').setAttribute('src', base64);
-            } else {
-                // document.getElementById('cover').style.display = "none";
+                document.getElementById('coverShow').setAttribute('src', base64);
             }
-
-
+            setTimeout(function(){
+                Materialize.updateTextFields();
+            }, 50);
             $scope.$apply();
         }
         $scope.save = function(songReader, coverReader) {
@@ -191,7 +182,6 @@ $("#file").change(function() {
     }
     var reader = new FileReader();
     var file = this.files[0];
-    // TODO: Read tags
     reader.onload = function(e) {
         $("#noFile").hide();
         $("#fileOpen").show();
