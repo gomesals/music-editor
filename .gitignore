@@ -1,5 +1,8 @@
-dist
+dist/js
+dist/style
+dist/index.html
 app/js/vendors.js
+
 # Created by https://www.gitignore.io/api/node,bower
 
 ### Node ###
