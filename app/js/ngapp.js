@@ -1,5 +1,5 @@
 'use strict';
-
+// var jsmediatags = window.jsmediatags;
 var app = angular.module('myApp', []);
 var musicPosition = null;
 var songFile = null;
@@ -9,18 +9,29 @@ $(".button-collapse").sideNav();
 
 app.controller('musicCtrl', [
     '$scope',
-    function($scope, $sce) {
+    function($scope) {
+        $('#file').change(function() {
+            var file = this.files[0],
+                url = file.urn || file.name;
+
+            ID3.loadTags(url, function() {
+                $scope.showTags(url);
+            }, {
+                tags: ["artist", "title", "album", "year", "track", "genre", "lyrics", "picture"],
+                dataReader: ID3.FileAPIReader(file)
+            });
+        });
         $scope.play = false;
         $scope.songVol = 10;
         $scope.song = {
-            title: 'Musica',
-            artist: 'Cantor',
-            albumArtist: 'cantor legal',
-            album: 'Album',
-            year: '2016',
-            track: '3',
-            genre: 'genero 1',
-            lyrics: 'Letra maneira da musica'
+        //     title: 'Musica',
+        //     artist: 'Cantor',
+        //     albumArtist: 'cantor legal',
+        //     album: 'Album',
+        //     year: '2016',
+        //     track: '3',
+        //     genre: 'genero 1',
+        //     lyrics: 'Letra maneira da musica' // TODO: it does not show with break lines
         };
 
         $scope.audioActions = function() {
@@ -63,19 +74,39 @@ app.controller('musicCtrl', [
             }
             document.getElementById('playMusic').volume = changeTo;
         }
-        $scope.save = function(songReader, coverReader){
-            var writer = new ID3Writer(songReader.result);
-            writer
-                .setFrame('TIT2', $scope.song['title'])
-                .setFrame('TPE1', $scope.song['artist'].split(','))
-                .setFrame('TPE2', $scope.song['albumArtist'])
-                .setFrame('TALB', $scope.song['album'])
-                .setFrame('TYER', $scope.song['year'])
-                .setFrame('TRCK', $scope.song['track'])
-                .setFrame('TCON', $scope.song['genre'].split(','))
-                .setFrame('USLT', $scope.song['lyrics']);
+        $scope.showTags = function(url) {
+            $scope.play = false;
+            var tags = ID3.getAllTags(url);
 
-            if(coverReader){
+            $scope.song['title'] = tags.title ? tags.title : '';
+            $scope.song['artist'] = tags.artist ? tags.artist : '';
+            // $scope.song['albumArtist'] = tags.TPE2 ? tags.TPE2.data : '';
+            $scope.song['album'] = tags.album ? tags.album : '';
+            $scope.song['year'] = tags.year ? tags.year : '';
+            $scope.song['track'] = tags.track ? tags.track : '';
+            $scope.song['genre'] = tags.genre ? tags.genre : '';
+            $scope.song['lyrics'] = tags.lyrics ? tags.lyrics.U : "";
+
+            var image = tags.picture;
+            if (image) {
+                var base64String = "";
+                for (var i = 0; i < image.data.length; i++) {
+                    base64String += String.fromCharCode(image.data[i]);
+                }
+                var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
+                document.getElementById('cover').setAttribute('src', base64);
+            } else {
+                // document.getElementById('cover').style.display = "none";
+            }
+
+
+            $scope.$apply();
+        }
+        $scope.save = function(songReader, coverReader) {
+            var writer = new ID3Writer(songReader.result);
+            writer.setFrame('TIT2', $scope.song['title']).setFrame('TPE1', $scope.song['artist'].split(',')).setFrame('TALB', $scope.song['album']).setFrame('TYER', $scope.song['year']).setFrame('TRCK', $scope.song['track']).setFrame('TCON', $scope.song['genre'].split(',')).setFrame('USLT', $scope.song['lyrics']);
+
+            if (coverReader) {
                 writer.setFrame('APIC', coverReader.result);
             }
 
@@ -85,16 +116,16 @@ app.controller('musicCtrl', [
         $scope.write = function() {
             var songReader = new FileReader();
             songReader.onload = function() {
-                if(document.getElementById('cover').files.length > 0){
+                if (document.getElementById('cover').files.length > 0) {
                     var coverReader = new FileReader();
-                    coverReader.onload = function(){
+                    coverReader.onload = function() {
                         $scope.save(songReader, coverReader);
                     }
-                    coverReader.onerror = function(){
+                    coverReader.onerror = function() {
                         console.log('Cover Reader error', coverReader.error);
                     }
                     coverReader.readAsArrayBuffer(document.getElementById('cover').files[0]);
-                }else{
+                } else {
                     $scope.save(songReader);
                 }
             };
@@ -131,11 +162,24 @@ function currentTime() {
     }
 }
 
+function showCover(image) {
+    if (image) {
+        var base64String = "";
+        for (var i = 0; i < image.data.length; i++) {
+            base64String += String.fromCharCode(image.data[i]);
+        }
+        var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
+        document.getElementById('coverShow').setAttribute('src', base64);
+    } else {
+        document.getElementById('coverShow').style.display = "none";
+    }
+}
+
 $("#cover").change(function() {
     if (this.files && this.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#coverShow').attr('src', e.target.result);
+            document.getElementById('coverShow').setAttribute('src', e.target.result);
         }
         reader.readAsDataURL(this.files[0]);
     }
@@ -147,14 +191,11 @@ $("#file").change(function() {
     }
     var reader = new FileReader();
     var file = this.files[0];
+    // TODO: Read tags
     reader.onload = function(e) {
         $("#noFile").hide();
         $("#fileOpen").show();
         $("#hasFile").show();
-        // var scope = $("#fileOpen").scope();
-        // scope.$apply(function() {
-            // scope.play = false;
-        // });
         clearTime();
         document.getElementById('playMusic').pause();
         songFile = file.name.split('.')[0];
