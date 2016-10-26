@@ -63,32 +63,40 @@ app.controller('musicCtrl', [
             }
             document.getElementById('playMusic').volume = changeTo;
         }
+        $scope.save = function(songReader, coverReader){
+            var writer = new ID3Writer(songReader.result);
+            writer
+                .setFrame('TIT2', $scope.song['title'])
+                .setFrame('TPE1', $scope.song['artist'].split(','))
+                .setFrame('TPE2', $scope.song['albumArtist'])
+                .setFrame('TALB', $scope.song['album'])
+                .setFrame('TYER', $scope.song['year'])
+                .setFrame('TRCK', $scope.song['track'])
+                .setFrame('TCON', $scope.song['genre'].split(','))
+                .setFrame('USLT', $scope.song['lyrics']);
+
+            if(coverReader){
+                writer.setFrame('APIC', coverReader.result);
+            }
+
+            writer.addTag();
+            saveAs(writer.getBlob(), songFile + '_tag.mp3');
+        }
         $scope.write = function() {
             var songReader = new FileReader();
             songReader.onload = function() {
-                var writer = new ID3Writer(songReader.result);
-                writer
-                    .setFrame('TIT2', $scope.song['title'])
-                    .setFrame('TPE1', $scope.song['artist'].split(','))
-                    .setFrame('TPE2', $scope.song['albumArtist'])
-                    .setFrame('TALB', $scope.song['album'])
-                    .setFrame('TYER', $scope.song['year'])
-                    .setFrame('TRCK', $scope.song['track'])
-                    .setFrame('TCON', $scope.song['genre'].split(','))
-                    .setFrame('USLT', $scope.song['lyrics']);
-
-                if(document.getElementById('cover').files > 0){
+                if(document.getElementById('cover').files.length > 0){
                     var coverReader = new FileReader();
                     coverReader.onload = function(){
-                        writer.setFrame('APIC', coverReader.result);
+                        $scope.save(songReader, coverReader);
                     }
                     coverReader.onerror = function(){
                         console.log('Cover Reader error', coverReader.error);
                     }
                     coverReader.readAsArrayBuffer(document.getElementById('cover').files[0]);
+                }else{
+                    $scope.save(songReader);
                 }
-                writer.addTag();
-                saveAs(writer.getBlob(), songFile + '_tag.mp3');
             };
             songReader.onerror = function() {
                 console.error('Song Reader error', songReader.error);
@@ -145,7 +153,7 @@ $("#file").change(function() {
         $("#hasFile").show();
         // var scope = $("#fileOpen").scope();
         // scope.$apply(function() {
-        //     scope.play = false;
+            // scope.play = false;
         // });
         clearTime();
         document.getElementById('playMusic').pause();
