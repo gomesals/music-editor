@@ -2,52 +2,50 @@
 
 var app = angular.module('myApp', []);
 var musicPosition = null;
-var fullSongPath = null;
-var name = 'alexandre';
+var songFile = null;
 
 $('.modal-trigger').leanModal();
 $(".button-collapse").sideNav();
 
-$(".openAudio").click(function() {
-    chrome.fileSystem.chooseEntry({
-        type: 'openFile',
-        accepts: [
-            {
-                description: 'MP3 files (*.mp3)',
-                extensions: ['mp3']
-            }
-        ]
-    }, function(fileEntry) {
-        if (!fileEntry) {
-            $("#res").html('nada');
-            return;
-        }
-        $("#noFile").hide();
-        $("#fileOpen").show();
-        $("#hasFile").show();
-        fileEntry.file(function(file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var scope = $("#fileOpen").scope();
-                scope.$apply(function() {
-                    scope.play = false;
-                });
-                clearTime();
-                document.getElementById('playMusic').pause();
-                $("#playMusic").prop('src', e.target.result);
-            };
-            reader.readAsDataURL(file);
-        });
-    });
-});
+// $(".openAudio").click(function() {
+//     chrome.fileSystem.chooseEntry({
+//         type: 'openFile',
+//         accepts: [
+//             {
+//                 description: 'MP3 files (*.mp3)',
+//                 extensions: ['mp3']
+//             }
+//         ]
+//     }, function(fileEntry) {
+//         if (!fileEntry) {
+//             $("#res").html('nada');
+//             return;
+//         }
+//         $("#noFile").hide();
+//         $("#fileOpen").show();
+//         $("#hasFile").show();
+//         fileEntry.file(function(file) {
+//             var reader = new FileReader();
+//             reader.onload = function(e) {
+//                 var scope = $("#fileOpen").scope();
+//                 scope.$apply(function() {
+//                     scope.play = false;
+//                 });
+//                 clearTime();
+//                 document.getElementById('playMusic').pause();
+//                 $("#playMusic").prop('src', e.target.result);
+//                 $("#res").html(e.target.result);
+//             };
+//             reader.readAsDataURL(file);
+//         });
+//     });
+// });
 
 app.controller('musicCtrl', [
-    '$scope', '$sce',
-    // '$scope',
+    '$scope',
     function($scope, $sce) {
         $scope.play = false;
         $scope.songVol = 10;
-        // $scope.songPath = $sce.trustAsResourceUrl('sample/Miracles.mp3');
         $scope.song = {
             title: 'Musica',
             artist: 'Cantor',
@@ -56,8 +54,7 @@ app.controller('musicCtrl', [
             year: '2016',
             track: '3',
             genre: 'genero 1',
-            lyrics: 'Letra maneira da musica',
-            comment: 'Comentarios'
+            lyrics: 'Letra maneira da musica'
         };
 
         $scope.audioActions = function() {
@@ -100,19 +97,44 @@ app.controller('musicCtrl', [
             }
             document.getElementById('playMusic').volume = changeTo;
         }
+        $scope.write = function() {
+            // var file = document.getElementById('file');
+            // return false;
+            var songReader = new FileReader();
+            songReader.onload = function() {
+                var writer = new ID3Writer(songReader.result);
+                writer
+                    .setFrame('TIT2', $scope.song['title'])
+                    .setFrame('TPE1', $scope.song['artist'].split(','))
+                    .setFrame('TPE2', $scope.song['albumArtist'])
+                    .setFrame('TALB', $scope.song['album'])
+                    .setFrame('TYER', $scope.song['year'])
+                    .setFrame('TRCK', $scope.song['track'])
+                    .setFrame('TCON', $scope.song['genre'].split(','))
+                    .setFrame('USLT', $scope.song['lyrics']);
+
+                if(document.getElementById('cover').files > 0){
+                    var coverReader = new FileReader();
+                    coverReader.onload = function(){
+                        writer.setFrame('APIC', coverReader.result);
+                    }
+                    coverReader.onerror = function(){
+                        console.log('Cover Reader error', coverReader.error);
+                    }
+                    coverReader.readAsArrayBuffer(document.getElementById('cover').files[0]);
+                }
+                writer.addTag();
+                saveAs(writer.getBlob(), songFile + '_tag.mp3');
+            };
+            songReader.onerror = function() {
+                console.error('Song Reader error', songReader.error);
+            };
+            songReader.readAsArrayBuffer(document.getElementById('file').files[0]);
+
+
+        }
     }
 ]);
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#coverShow').attr('src', e.target.result);
-            console.log('cheguei');
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 function clearTime() {
     $('.curLen3').css('-webkot-transform', 'rotate(0deg)').css('transform', 'rotate(0deg)');
@@ -143,6 +165,57 @@ function currentTime() {
 }
 
 $("#cover").change(function() {
-    console.log('foi');
-    readURL(this);
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#coverShow').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
 });
+
+$("#file").change(function() {
+    if (!this.files.length) {
+        return;
+    }
+    var reader = new FileReader();
+    var file = this.files[0];
+    reader.onload = function(e) {
+        $("#noFile").hide();
+        $("#fileOpen").show();
+        $("#hasFile").show();
+        var scope = $("#fileOpen").scope();
+        scope.$apply(function() {
+            scope.play = false;
+        });
+        clearTime();
+        document.getElementById('playMusic').pause();
+        songFile = file.name.split('.')[0];
+        $("#playMusic").prop('src', e.target.result);
+    };
+    reader.onerror = function() {
+        console.error('Song Reader Play error', reader.error);
+    };
+    reader.readAsDataURL(file);
+});
+// function writeM (arrayBuffer){
+//     var writer = new ID3Writer(arrayBuffer);
+// writer.setFrame('TIT2', 'Home')
+//       .setFrame('TPE1', 'cantor'.split(','))
+//       .setFrame('TPE2', 'Eminem')
+//       .setFrame('TALB', 'Friday Night Lights')
+//       .setFrame('TYER', 2004)
+//       .setFrame('TRCK', '6/8')
+//       .setFrame('TPOS', '1/2')
+//       .setFrame('TCON', 'genero'.split(','))
+//       .setFrame('USLT', 'This is unsychronised lyrics')
+//     //   .setFrame('APIC', coverArrayBuffer);
+// writer.addTag();
+//
+// // now you can save it to file as you wish
+// // var arrayBuffer = writer.arrayBuffer;
+// // var blob = writer.getBlob();
+// // var url = writer.getURL();
+//
+// saveAs(writer.getBlob(), 'song with tags.mp3');
+// }
