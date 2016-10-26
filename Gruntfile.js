@@ -47,7 +47,8 @@ module.exports = grunt => {
                 },
                 files: {
                     'dist/js/vendors.js': ['app/js/vendors.js'],
-                    'dist/js/browser-id3-writer.min.js': ['app/js/vendors/browser-id3-writer.min.js']
+                    'dist/js/browser-id3-writer.min.js': ['app/js/vendors/browser-id3-writer.min.js'],
+                    'dist/js/id3-minimized.js': ['app/js/vendors/id3-minimized.js']
                 }
             },
             jsMy: {
@@ -74,7 +75,6 @@ module.exports = grunt => {
             compile: {
                 files: {
                     'dist/index.html': ['app/index.pug'],
-                    'dist/test.html': ['app/test.pug']
                 }
             }
         }
