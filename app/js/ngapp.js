@@ -148,10 +148,7 @@ function currentTime() {
         clearInterval(musicPosition);
         clearTime();
     } else {
-        var end = moment.duration(pm.duration * 1000).format('mm:ss');
-        var cur = moment.duration(pm.currentTime * 1000).format('mm:ss');
         var rotate = (pm.currentTime / pm.duration) * 360;
-        $('.curLen1').prop('title', cur + ' - ' + end);
         $('.determinate').css('width', (pm.currentTime / pm.duration) * 100 + '%');
         if (rotate < 180) {
             $('.curLen3').css('-webkot-transform', 'rotate(' + rotate + 'deg)').css('transform', 'rotate(' + rotate + 'deg)');
@@ -184,10 +181,10 @@ $("#file").change(function() {
         $("#noFile").hide();
         $("#fileOpen").show();
         $("#hasFile").show();
-        var scope = $("#fileOpen").scope();
-        scope.$apply(function() {
-            scope.play = false;
-        });
+        // var scope = $("#fileOpen").scope();
+        // scope.$apply(function() {
+        //     scope.play = false;
+        // });
         clearTime();
         document.getElementById('playMusic').pause();
         songFile = file.name.split('.')[0];

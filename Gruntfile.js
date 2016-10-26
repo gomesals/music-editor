@@ -26,27 +26,36 @@ module.exports = grunt => {
                 }
             }
         },
-        uglify: {
-            js: {
-                options:{
-                    sourceMap: true,
-                },
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'app/js',
-                        src: '*.js',
-                        dest: 'dist/js'
-                    }
-                ]
+        concat: {
+            options: {
+                separator: ';'
             },
-            jsMy: {
-                options:{
-                    sourceMap: true,
+            dist: {
+                src: [
+                    'app/js/vendors/angular.js',
+                    'app/js/vendors/FileSaver.js',
+                    'app/js/vendors/jquery.js',
+                    'app/js/vendors/materialize.js',
+                ],
+                dest: 'app/js/vendors.js'
+            }
+        },
+        uglify: {
+            vendor: {
+                options: {
+                    sourceMap: true
                 },
                 files: {
-                    'dist/js/app.js' : ['app/js/app.js'],
-                    'dist/js/ngapp.js' : ['app/js/ngapp.js']
+                    'dist/js/vendors.js': ['app/js/vendors.js'],
+                    'dist/js/browser-id3-writer.min.js': ['app/js/vendors/browser-id3-writer.min.js']
+                }
+            },
+            jsMy: {
+                options: {
+                    sourceMap: true
+                },
+                files: {
+                    'dist/js/ngapp.js': ['app/js/ngapp.js']
                 }
             }
         },
