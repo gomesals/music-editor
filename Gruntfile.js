@@ -77,7 +77,20 @@ module.exports = grunt => {
                     'dist/index.html': ['app/index.pug'],
                 }
             }
-        }
+        },
+        copy: {
+            main: {
+                files: [
+                    {expand: true, src: ['app/fonts/*'], dest: 'dist/fonts'},
+                    {expand: false, src: ['app/background.js'], dest: 'dist/background.js'},
+                    {expand: false, src: ['app/manifest.json'], dest: 'dist/manifest.json'},
+                    {expand: false, src: ['app/icon-16.png'], dest: 'dist/icon-16.png'},
+                    {expand: false, src: ['app/icon-128.png'], dest: 'dist/icon-128.png'},
+                ],
+            },
+        },
     });
     grunt.registerTask('default', ['watch']);
+    // grunt.registerTask('build', ['concat', 'uglify', 'sass', 'copy', 'pug']);
+    grunt.registerTask('init', ['copy']);
 };
