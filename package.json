@@ -29,8 +29,5 @@
     "load-grunt-tasks": "^3.5.2"
   },
   "dependencies": {
-    "node-id3": "0.0.5",
-    "systemjs": "^0.19.40",
-    "uniq": "^1.0.1"
   }
 }
