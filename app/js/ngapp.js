@@ -1,4 +1,7 @@
 // TODO: Drag & Drop
+/*
+global angular $ ID3 Materialize ID3Writer saveAs
+*/
 'use strict';
 var app = angular.module('myApp', []);
 var musicPosition = null;
@@ -10,6 +13,10 @@ $(".button-collapse").sideNav();
 app.controller('musicCtrl', [
     '$scope',
     function($scope) {
+        $scope.app = {
+            name: 'App name',
+            version: '1.0'
+        };
         $('#file').change(function() {
             var file = this.files[0],
                 url = file.urn || file.name;
@@ -23,49 +30,54 @@ app.controller('musicCtrl', [
         });
         $scope.play = false;
         $scope.songVol = 10;
-        $scope.song = {
-        };
+        $scope.song = {};
 
         $scope.audioActions = function() {
             if ($scope.play) {
                 document.getElementById('playMusic').play();
                 musicPosition = setInterval(function() {
-                    currentTime()
+                    currentTime();
                 }, 1000);
-            } else {
+            }
+            else {
                 document.getElementById('playMusic').pause();
                 clearInterval(musicPosition);
             }
-        }
+        };
         $scope.changeVol = function(dir) {
             var changeTo = 0;
-            $scope.songVol = parseInt($scope.songVol);
+            $scope.songVol = parseInt($scope.songVol, 10);
             if ($scope.songVol > 0 && $scope.songVol < 10) {
                 if (dir === 'up') {
                     $scope.songVol += 1;
-                } else if (dir === 'down') {
+                }
+                else if (dir === 'down') {
                     $scope.songVol -= 1;
                 }
                 changeTo = $scope.songVol / 10;
-            } else if ($scope.songVol == 0) {
+            }
+            else if ($scope.songVol == 0) {
                 if (dir === 'up') {
                     $scope.songVol += 1;
                     changeTo = $scope.songVol / 10;
-                } else if (dir === undefined) {
+                }
+                else if (dir === undefined) {
                     changeTo = 0;
                 }
-            } else if ($scope.songVol) {
+            }
+            else if ($scope.songVol) {
                 if (dir === 'down') {
                     if ($scope.songVol > 0) {
                         $scope.songVol -= 1;
                         changeTo = $scope.songVol / 10;
                     }
-                } else {
+                }
+                else {
                     changeTo = 1;
                 }
             }
             document.getElementById('playMusic').volume = changeTo;
-        }
+        };
         $scope.showTags = function(url) {
             $scope.play = false;
             var tags = ID3.getAllTags(url);
@@ -88,11 +100,11 @@ app.controller('musicCtrl', [
                 var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
                 document.getElementById('coverShow').setAttribute('src', base64);
             }
-            setTimeout(function(){
+            setTimeout(function() {
                 Materialize.updateTextFields();
             }, 50);
             $scope.$apply();
-        }
+        };
         $scope.save = function(songReader, coverReader) {
             var writer = new ID3Writer(songReader.result);
             writer.setFrame('TIT2', $scope.song['title']).setFrame('TPE1', $scope.song['artist'].split(',')).setFrame('TALB', $scope.song['album']).setFrame('TYER', $scope.song['year']).setFrame('TRCK', $scope.song['track']).setFrame('TCON', $scope.song['genre'].split(',')).setFrame('USLT', $scope.song['lyrics']);
@@ -103,7 +115,7 @@ app.controller('musicCtrl', [
 
             writer.addTag();
             saveAs(writer.getBlob(), songFile + '_tag.mp3');
-        }
+        };
         $scope.write = function() {
             var songReader = new FileReader();
             songReader.onload = function() {
@@ -111,12 +123,13 @@ app.controller('musicCtrl', [
                     var coverReader = new FileReader();
                     coverReader.onload = function() {
                         $scope.save(songReader, coverReader);
-                    }
+                    };
                     coverReader.onerror = function() {
                         console.log('Cover Reader error', coverReader.error);
-                    }
+                    };
                     coverReader.readAsArrayBuffer(document.getElementById('cover').files[0]);
-                } else {
+                }
+                else {
                     $scope.save(songReader);
                 }
             };
@@ -124,7 +137,7 @@ app.controller('musicCtrl', [
                 console.error('Song Reader error', songReader.error);
             };
             songReader.readAsArrayBuffer(document.getElementById('file').files[0]);
-        }
+        };
     }
 ]);
 
@@ -139,12 +152,14 @@ function currentTime() {
     if (pm.ended) {
         clearInterval(musicPosition);
         clearTime();
-    } else {
+    }
+    else {
         var rotate = (pm.currentTime / pm.duration) * 360;
         $('.determinate').css('width', (pm.currentTime / pm.duration) * 100 + '%');
         if (rotate < 180) {
             $('.curLen3').css('-webkot-transform', 'rotate(' + rotate + 'deg)').css('transform', 'rotate(' + rotate + 'deg)');
-        } else {
+        }
+        else {
             rotate -= 180;
             $('.curLen3').css('-webkot-transform', 'rotate(180deg)').css('transform', 'rotate(180deg)');
             $('.curLen4').css('-webkot-transform', 'rotate(180deg)').css('transform', 'rotate(180deg)');
@@ -153,25 +168,12 @@ function currentTime() {
     }
 }
 
-function showCover(image) {
-    if (image) {
-        var base64String = "";
-        for (var i = 0; i < image.data.length; i++) {
-            base64String += String.fromCharCode(image.data[i]);
-        }
-        var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
-        document.getElementById('coverShow').setAttribute('src', base64);
-    } else {
-        document.getElementById('coverShow').style.display = "none";
-    }
-}
-
 $("#cover").change(function() {
     if (this.files && this.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById('coverShow').setAttribute('src', e.target.result);
-        }
+        };
         reader.readAsDataURL(this.files[0]);
     }
 });

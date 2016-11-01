@@ -22,6 +22,10 @@ select {
     display: inline-block !important;
 }
 
+#noFile{
+    margin-top: 60px;
+}
+
 .openAudio {
     margin-top: 20px;
     padding: 10px;
@@ -49,6 +53,9 @@ select {
 
 #hasFile {
     display: none;
+    span, i{
+        font-size: 15px;
+    }
 }
 
 #fileOpen {
@@ -97,7 +104,7 @@ select {
 
 textarea{
     margin: 10px 0 !important;
-    min-height: 200px !important;
-    max-height: 500px !important;
+    min-height: 250px !important;
+    max-height: 250px !important;
     overflow-y: auto !important;
 }
