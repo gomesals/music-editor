@@ -1,0 +1,19 @@
+{
+    "name": "Music",
+    "description": "Music.",
+    "version": "0.1",
+    "manifest_version": 2,
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "content_scripts": [{
+    }],
+    "permissions": [
+    ],
+    "icons": {
+        "16": "icon-16.png",
+        "128": "icon-128.png"
+    }
+}
