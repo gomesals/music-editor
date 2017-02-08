@@ -1,6 +1,6 @@
 {
-  "name": "music",
-  "version": "0.0.1",
+  "name": "musicEditor",
+  "version": "1.0.0",
   "description": "Music tag editor",
   "main": "index.js",
   "scripts": {
