@@ -83,7 +83,7 @@ __webpack_require__(2);
 
 function component() {
   var element = document.createElement('div');
-  element.innerHTML = 'Agora com postcss';
+  element.innerHTML = 'Agora com postcss e sem reload e bundle e dois legal';
   return element;
 }
 document.body.appendChild(component());
@@ -128,7 +128,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "body{background-color:purple}body:before{content:'';display:table}body:after{content:'';display:table;clear:both}", ""]);
+exports.push([module.i, "body{background-color:gray;color:#fff}body:before{content:'';display:table}body:after{content:'';display:table;clear:both}", ""]);
 
 // exports
 
