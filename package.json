@@ -1,32 +1,20 @@
 {
-  "name": "musicEditor",
+  "name": "music-editor",
   "version": "1.0.0",
-  "description": "Music tag editor",
+  "description": "Simple offline webapp music tag editor",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "music",
-    "tag",
-    "editor",
-    "javascript",
-    "node",
-    "chromeos",
-    "chromebook"
-  ],
+  "repository": "https://github.com/silvalexandre/music-editor.git",
   "author": "Alexandre Silva <contato@silvalexandre.com>",
   "license": "MIT",
+  "private": false,
+  "scripts": {
+    "webpack": "webpack --progress --colors --watch"
+  },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "grunt": "^1.0.1",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-pug": "^1.0.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-sass": "^1.2.1",
-    "load-grunt-tasks": "^3.5.2"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^3.5.6"
   },
   "dependencies": {}
 }
