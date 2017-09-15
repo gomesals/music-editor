@@ -1,7 +1,11 @@
 doctype
-html
+html(lang="en")
 	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
 		title Music Editor
+		link(rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
 	body(data-ng-app="musicApp")
 		nav
 			.title(title="Music Editor") Music Editor
@@ -28,15 +32,17 @@ html
 						audio#play Your browser does not support the audio element.
 						.play
 							.buttons-container
-								button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false") &gt;
-								button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false") ||
+								button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
+									span.ion-play
+								button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
+									span.ion-pause
 						.volume
 							.v-d
-								button(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0") d
+								.ion-volume-low(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0")
 							.v-s
 								input(type="range" min="0" max="10" step="1" title="Change Volume" data-ng-model="music.actions.vol")
 							.v-u
-								button(data-ng-click="music.volume(true)" title="Volume Up" data-ng-disabled="music.actions.vol === 10") u
+								.ion-volume-high(data-ng-click="music.volume(true)" title="Volume Up" data-ng-disabled="music.actions.vol === 10")
 				#fields
 					.form-control
 						label(for="title") Title

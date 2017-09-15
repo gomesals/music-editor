@@ -97,9 +97,13 @@ main{
 				lost-utility: clearfix;
 				.v-d, .v-u{
 					lost-column: 1/5;
-					button{
-						@mixin button-primary;
-						border-radius: 50%;
+					div{
+						font-size: 1.5em;
+						cursor: pointer;
+						&[disabled]{
+							color: $text--hint;
+							cursor: default;
+						}
 					}
 				}
 				.v-d{
