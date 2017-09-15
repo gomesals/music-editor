@@ -7,5 +7,10 @@ html
 			.title(title="Music Editor") Music Editor
 			.about
 				a(href="#" title="About") About
-		h1 loaded pug
+		main
+			.noFile
+				input#file(type="file", accept="audio/mpeg")
+				.title To edit the tags, first open a file.
+				label(for="file")
+					span Open file
 		script(src="js/app.js")

@@ -1,4 +1,20 @@
 @import "lib/_default.scss";
-body{
-	color: $accent;
+.noFile{
+	text-align: center;
+	input{
+		display: none;
+	}
+	.title{
+		font-size: 2em;
+
+		margin-bottom: 2em;
+	}
+	label{
+		display: inline-block;
+		@mixin button-accent;
+		@mixin button-big;
+		@mixin button-pop;
+		@mixin shadow-1;
+		@mixin shadow-pop-1;
+	}
 }
