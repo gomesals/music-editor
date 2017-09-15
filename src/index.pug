@@ -18,32 +18,47 @@ html
 					span Open another file
 			section#editor
 				#media
-					div media
+					.card(style="background-image: url('https://upload.wikimedia.org/wikipedia/en/3/3b/Stone_sour.jpg')")
+						.info
+							.title-album
+								span.title {{music.song.title}}
+								span.album {{music.song.album}}
+							.artist by {{music.song.artist}}
+					.control
+						.play
+							button(title="Play") &gt;
+						.volume
+							.v-d
+								button(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0") d
+							.v-s
+								input(type="range" min="0" max="10" step="1" title="Change Volume" data-ng-model="music.actions.vol")
+							.v-u
+								button(data-ng-click="music.volume(true)" title="Volume Up" data-ng-disabled="music.actions.vol === 10") u
 				#fields
 					.form-control
 						label(for="title") Title
-						input#title.input(type="text" placeholder="Title")
+						input#title.input(type="text" data-ng-model="music.song.title" placeholder="Title")
 					.form-control
 						label(for="artist") Artist
-						input#artist.input(type="text" placeholder="Artist")
+						input#artist.input(type="text" data-ng-model="music.song.artist" placeholder="Artist")
 					.form-control
 						label(for="album") Album
-						input#album.input(type="text" placeholder="Album")
+						input#album.input(type="text" data-ng-model="music.song.album" placeholder="Album")
 					.half
 						.item
 							.form-control
 								label(for="year") Year
-								input#year.input(type="text" placeholder="Year" maxlength="4")
+								input#year.input(type="text" placeholder="Year" data-ng-model="music.song.year" maxlength="4")
 						.item
 							.form-control
 								label(for="track") Track
-								input#track.input(type="text" placeholder="Track")
+								input#track.input(type="text" data-ng-model="music.song.track" placeholder="Track")
 					.form-control
 						label(for="genre") Genre
-						input#genre.input(type="text" placeholder="Genre")
+						input#genre.input(type="text" data-ng-model="music.song.genre" placeholder="Genre")
 					.form-control
 						label(for="lyrics") Lyrics
-						textarea#lyrics.input(placeholder="Lyrics")
+						textarea#lyrics.input(placeholder="Lyrics" data-ng-model="music.song.lyrics")
 					.form-control
 						.save
 							button(type="button") Save tags &amp; Download

@@ -41,10 +41,79 @@ main{
 }
 #editor{
 	lost-utility: clearfix;
-	#media, #fields{
-		lost-column: 1/2;
+	#media{
+		lost-column: 1/3;
+		.card{
+			padding-top: 20em;
+			margin-bottom: 2em;
+
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			.info{
+				padding: 1em 2em;
+
+				background-color: color($primary--dark a(60%));
+				.title-album{
+					margin-bottom: .5em;
+
+					color: $text-white;
+					.title{
+						font-size: 1.5em;
+					}
+					.album{
+						font-size: 1.3em;
+
+						margin-left: .5em;
+
+						color: $text-white--secondary;
+					}
+				}
+				.artist{
+					font-size: 1.2em;
+
+					color: $text-white--hint;
+				}
+			}
+		}
+		.control{
+			@mixin card;
+			@mixin shadow-1;
+			.play{
+				text-align: center;
+				margin-bottom: 2em;
+				button{
+					@mixin button-accent;
+					@mixin button-pop;
+					@mixin shadow-2;
+					@mixin shadow-pop-2;
+					@mixin button-big;
+					border-radius: 50%;
+				}
+			}
+			.volume{
+				lost-utility: clearfix;
+				.v-d, .v-u{
+					lost-column: 1/5;
+					button{
+						@mixin button-primary;
+						border-radius: 50%;
+					}
+				}
+				.v-d{
+				}
+				.v-s{
+					lost-column: 3/5;
+					input{
+						width: 100%;
+					}
+				}
+				.v-u{}
+			}
+		}
 	}
 	#fields{
+		lost-column: 2/3;
 		.form-control{
 			margin-bottom: 1.25em;
 		}
