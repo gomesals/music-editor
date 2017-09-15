@@ -2,6 +2,7 @@ import angular from 'angular';
 angular.module('musicApp', []).controller('musicCtrl', musicCtrl);
 let position;
 let songFile;
+let mainCover;
 
 function musicCtrl($scope) {
 	const vm = this;
@@ -17,7 +18,7 @@ function musicCtrl($scope) {
 	vm.actions = {
 		play: false,
 		vol: 10,
-		hasFile: true, // TOOD: change
+		hasFile: false,
 	};
 	vm.change = inputFile => {
 		if (!inputFile.files.length) return false;
@@ -55,6 +56,7 @@ function musicCtrl($scope) {
 				lyrics: tags.lyrics ? tags.lyrics.U : '',
 			};
 			document.getElementById('spic').style.backgroundImage = 'unset';
+			mainCover = undefined;
 			if (tags.picture) {
 				let base64String = '';
 				for (let i = 0; i < tags.picture.data.length; i++) {
@@ -62,6 +64,12 @@ function musicCtrl($scope) {
 				}
 				const base64 = `data:${tags.picture.format};base64,${window.btoa(base64String)}`;
 				document.getElementById('spic').style.backgroundImage = `url('${base64}')`;
+				const len = base64String.length;
+				let bytes = new Uint8Array(len);
+				for (let i = 0; i < len; i++) {
+					bytes[i] = base64String.charCodeAt(i);
+				}
+				mainCover = bytes.buffer;
 			}
 			vm.actions.hasFile = true;
 			$scope.$apply();
@@ -129,6 +137,8 @@ function musicCtrl($scope) {
 		writer.setFrame('TIT2', vm.song.title).setFrame('TPE1', vm.song.artist.split(',')).setFrame('TALB', vm.song.album).setFrame('TYER', vm.song.year).setFrame('TRCK', vm.song.track).setFrame('TCON', vm.song.genre.split(',')).setFrame('USLT', vm.song.lyrics);
 		if (coverReader) {
 			writer.setFrame('APIC', coverReader.result);
+		} else if (mainCover) {
+			writer.setFrame('APIC', mainCover);
 		}
 		writer.addTag();
 		saveAs(writer.getBlob(), `${songFile}_tagged.mp3`);
