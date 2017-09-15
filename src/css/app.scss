@@ -8,7 +8,7 @@ main{
 	margin-left: 10vw;
 }
 .noFile{
-	display: none; // TODO: remove
+	display: none; // TODO: remove;
 
 	margin-top: 5em;
 
@@ -37,5 +37,11 @@ main{
 		@mixin button-pop;
 		@mixin shadow-1;
 		@mixin shadow-pop-1;
+	}
+}
+#editor{
+	lost-utility: clearfix;
+	#media, #fields{
+		lost-column: 1/2;
 	}
 }
