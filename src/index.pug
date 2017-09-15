@@ -14,11 +14,37 @@ html
 				label(for="file")
 					span Open file
 			.changeFile
-				label(for="fille")
+				label(for="file")
 					span Open another file
 			section#editor
 				#media
 					div media
 				#fields
-					div fields
+					.form-control
+						label(for="title") Title
+						input#title.input(type="text" placeholder="Title")
+					.form-control
+						label(for="artist") Artist
+						input#artist.input(type="text" placeholder="Artist")
+					.form-control
+						label(for="album") Album
+						input#album.input(type="text" placeholder="Album")
+					.half
+						.item
+							.form-control
+								label(for="year") Year
+								input#year.input(type="text" placeholder="Year" maxlength="4")
+						.item
+							.form-control
+								label(for="track") Track
+								input#track.input(type="text" placeholder="Track")
+					.form-control
+						label(for="genre") Genre
+						input#genre.input(type="text" placeholder="Genre")
+					.form-control
+						label(for="lyrics") Lyrics
+						textarea#lyrics.input(placeholder="Lyrics")
+					.form-control
+						.save
+							button(type="button") Save tags &amp; Download
 		script(src="js/app.js")

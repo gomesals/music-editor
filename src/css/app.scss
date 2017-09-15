@@ -44,4 +44,30 @@ main{
 	#media, #fields{
 		lost-column: 1/2;
 	}
+	#fields{
+		.form-control{
+			margin-bottom: 1.25em;
+		}
+		.half{
+			lost-utility: clearfix;
+			.item{
+				lost-column: 1/2;
+			}
+		}
+		#lyrics{
+			min-height: 250px;
+
+			resize: vertical;
+		}
+		.save{
+			button{
+				width: 100%;
+				@mixin button-accent;
+				@mixin button-big;
+				@mixin button-pop;
+				@mixin shadow-1;
+				@mixin shadow-pop-1;
+			}
+		}
+	}
 }
