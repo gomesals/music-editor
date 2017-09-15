@@ -1,0 +1,33 @@
+* {
+	// font-family: 'Open Sans', sans-serif;
+
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	font-size: 100%;
+
+	color: $text;
+	background-color: $background-color;
+}
+
+::selection {
+	color: $text-white;
+	background: $accent;
+}
+
+@media (--xs) {
+	body {
+		font-size: 85%;
+	}
+}
+
+@media (--sm-max) {}
+
+@media (--sm-min) {}
