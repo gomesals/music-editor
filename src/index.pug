@@ -2,13 +2,13 @@ doctype
 html
 	head
 		title Music Editor
-	body
+	body(data-ng-app="musicApp")
 		nav
 			.title(title="Music Editor") Music Editor
 			.about
 				a(href="#" title="About") About
-		main
-			input#file(type="file", accept="audio/mpeg")
+		main(data-ng-controller="musicCtrl as music")
+			input#file(type="file" accept="audio/mpeg" onchange="angular.element(this).scope().music.change(this)")
 			.noFile
 				.title To edit the tags, first open a file.
 				label(for="file")
