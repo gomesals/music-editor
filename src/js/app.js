@@ -6,12 +6,12 @@ let songFile;
 function musicCtrl($scope) {
 	const vm = this;
 	vm.song = {
-		artist: 'Stone Sour',
-		title: 'Miracles',
-		album: 'Audio Secrecy',
-		year: '2010',
-		track: '10',
-		genre: 'Alternative Metal',
+		artist: '',
+		title: '',
+		album: '',
+		year: '',
+		track: '',
+		genre: '',
 		lyrics: '',
 	};
 	vm.actions = {
@@ -21,10 +21,10 @@ function musicCtrl($scope) {
 		song: {}
 	};
 	vm.change = (inputFile) => {
-		console.log('file changed');
 		if (!inputFile.files.length) return false;
 		const reader = new FileReader();
 		const file = inputFile.files[0];
+		const url = file.urn || file.name;
 		clearInterval(position);
 		vm.clearTime();
 		vm.actions.play = false;
@@ -35,6 +35,7 @@ function musicCtrl($scope) {
 			$scope.$apply();
 			songFile = file.name.split('.')[0];
 			document.getElementById('play').setAttribute('src', e.target.result);
+			vm.getTags(url, file);
 		};
 		reader.onerror = () => {
 			vm.actions.hasFile = false;
@@ -43,6 +44,33 @@ function musicCtrl($scope) {
 			console.log(reader.error);
 		};
 		reader.readAsDataURL(file);
+	};
+	vm.getTags = (url, file) => {
+		ID3.loadTags(url, () => {
+			const tags = ID3.getAllTags(url);
+			vm.song = {
+				artist: tags.artist ? tags.artist : '',
+				title: tags.title ? tags.title : '',
+				album: tags.album ? tags.album : '',
+				year: tags.year ? tags.year : '',
+				track: tags.track ? tags.track : '',
+				genre: tags.genre ? tags.genre : '',
+				lyrics: tags.lyrics ? tags.lyrics.U : '',
+			};
+			document.getElementById('spic').style.backgroundImage = 'unset';
+			if (tags.picture) {
+				let base64String = '';
+				for (let i = 0; i < tags.picture.data.length; i++) {
+					base64String += String.fromCharCode(tags.picture.data[i]);
+				}
+				const base64 = `data:${tags.picture.format};base64,${window.btoa(base64String)}`;
+				document.getElementById('spic').style.backgroundImage = `url('${base64}')`;
+			}
+			$scope.$apply();
+		}, {
+			tags: ["artist", "title", "album", "year", "track", "genre", "lyrics", "picture"],
+			dataReader: ID3.FileAPIReader(file)
+		});
 	};
 	vm.playPause = () => {
 		if (vm.actions.play) {
