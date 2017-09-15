@@ -131,6 +131,11 @@ main{
 
 			resize: vertical;
 		}
+		#btnCover{
+			@mixin button-primary;
+			display: block;
+			width: 100%;
+		}
 		.save{
 			button{
 				width: 100%;

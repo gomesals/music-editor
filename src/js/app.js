@@ -17,9 +17,9 @@ function musicCtrl($scope) {
 	vm.actions = {
 		play: false,
 		vol: 10,
-		hasFile: false,
+		hasFile: true, // TOOD: change
 	};
-	vm.change = (inputFile) => {
+	vm.change = inputFile => {
 		if (!inputFile.files.length) return false;
 		const reader = new FileReader();
 		const file = inputFile.files[0];
@@ -79,7 +79,7 @@ function musicCtrl($scope) {
 			position = setInterval(vm.currentTime, 1000);
 		}
 		vm.actions.play = !vm.actions.play;
-	}
+	};
 	vm.volume = up => {
 		if (!up && vm.actions.vol > 0) {
 			vm.actions.vol -= 1;
@@ -87,7 +87,19 @@ function musicCtrl($scope) {
 			vm.actions.vol += 1;
 		}
 		document.getElementById('play').volume = (vm.actions.vol > 0 ? vm.actions.vol / 10 : 0);
-	}
+	};
+	vm.openCover = () => {
+		document.getElementById('lblCover').click();
+	};
+	vm.changeCover = file => {
+		if (file.files && file.files[0]) {
+			const reader = new FileReader();
+			reader.onload = e => {
+				document.getElementById('spic').style.backgroundImage = `url('${e.target.result}')`;
+			}
+			reader.readAsDataURL(file.files[0]);
+		}
+	};
 	vm.currentTime = () => {
 		const play = document.getElementById('play');
 		if (play.ended) {

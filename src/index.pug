@@ -27,13 +27,6 @@ html
 					.control
 						audio#play Your browser does not support the audio element.
 						.play
-							//- .length-container
-								.length
-									#cur1
-										#cur2
-											#cur3
-										#cur4
-											#cur5
 							.buttons-container
 								button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false") &gt;
 								button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false") ||
@@ -66,9 +59,14 @@ html
 					.form-control
 						label(for="genre") Genre
 						input#genre.input(type="text" data-ng-model="music.song.genre" placeholder="Genre")
+
 					.form-control
 						label(for="lyrics") Lyrics
 						textarea#lyrics.input(placeholder="Lyrics" data-ng-model="music.song.lyrics")
+					.form-control
+						label#lblCover(for="cover") Cover image
+						button#btnCover(title="Select cover image" type="button" data-ng-click="music.openCover()") Select cover image
+						input#cover.hide(type="file" data-ng-model="music.song.cover" accept="image/*" onchange="angular.element(this).scope().music.changeCover(this)")
 					.form-control
 						.save
 							button(type="button") Save tags &amp; Download
