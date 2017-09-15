@@ -9,14 +9,14 @@ html
 				a(href="#" title="About") About
 		main(data-ng-controller="musicCtrl as music")
 			input#file.hide(type="file" accept="audio/mpeg" onchange="angular.element(this).scope().music.change(this)")
-			.noFile
+			.noFile(data-ng-hide="music.actions.hasFile")
 				.title To edit the tags, first open a file.
 				label(for="file")
 					span Open file
-			.changeFile
+			.changeFile(data-ng-show="music.actions.hasFile")
 				label(for="file")
 					span Open another file
-			section#editor
+			section#editor(data-ng-show="music.actions.hasFile")
 				#media
 					.card#spic
 						.info#crlt

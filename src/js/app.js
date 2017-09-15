@@ -18,7 +18,6 @@ function musicCtrl($scope) {
 		play: false,
 		vol: 10,
 		hasFile: false,
-		song: {}
 	};
 	vm.change = (inputFile) => {
 		if (!inputFile.files.length) return false;
@@ -31,8 +30,6 @@ function musicCtrl($scope) {
 		$scope.$apply();
 		document.getElementById('play').pause();
 		reader.onload = e => {
-			vm.actions.hasFile = true;
-			$scope.$apply();
 			songFile = file.name.split('.')[0];
 			document.getElementById('play').setAttribute('src', e.target.result);
 			vm.getTags(url, file);
@@ -66,6 +63,7 @@ function musicCtrl($scope) {
 				const base64 = `data:${tags.picture.format};base64,${window.btoa(base64String)}`;
 				document.getElementById('spic').style.backgroundImage = `url('${base64}')`;
 			}
+			vm.actions.hasFile = true;
 			$scope.$apply();
 		}, {
 			tags: ["artist", "title", "album", "year", "track", "genre", "lyrics", "picture"],
