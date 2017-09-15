@@ -1,6 +1,6 @@
 {
 	"name": "music-editor",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Simple offline webapp music tag editor",
 	"main": "index.js",
 	"repository": "https://github.com/silvalexandre/music-editor.git",
