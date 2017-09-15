@@ -8,7 +8,7 @@ html
 			.about
 				a(href="#" title="About") About
 		main(data-ng-controller="musicCtrl as music")
-			input#file(type="file" accept="audio/mpeg" onchange="angular.element(this).scope().music.change(this)")
+			input#file.hide(type="file" accept="audio/mpeg" onchange="angular.element(this).scope().music.change(this)")
 			.noFile
 				.title To edit the tags, first open a file.
 				label(for="file")
@@ -25,8 +25,10 @@ html
 								span.album {{music.song.album}}
 							.artist by {{music.song.artist}}
 					.control
+						audio#play Your browser does not support the audio element.
 						.play
-							button(title="Play") &gt;
+							button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false") &gt;
+							button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false") |&nbsp;|
 						.volume
 							.v-d
 								button(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0") d
