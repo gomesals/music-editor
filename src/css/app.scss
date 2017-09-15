@@ -1,0 +1,155 @@
+@import "lib/_default.scss";
+
+.hide{
+	display: none;
+}
+main{
+	margin-right: 10vw;
+	margin-left: 10vw;
+}
+.noFile{
+	margin-top: 5em;
+
+	text-align: center;
+	.title{
+		font-size: 2em;
+
+		margin-bottom: 2em;
+	}
+	label{
+		display: inline-block;
+		@mixin button-accent;
+		@mixin button-big;
+		@mixin button-pop;
+		@mixin shadow-1;
+		@mixin shadow-pop-1;
+	}
+}
+.changeFile{
+	margin-top: 2em;
+
+	text-align: right;
+	label{
+		display: inline-block;
+		@mixin button-accent;
+		@mixin button-pop;
+		@mixin shadow-1;
+		@mixin shadow-pop-1;
+	}
+}
+#editor{
+	lost-utility: clearfix;
+	#media{
+		lost-column: 1/3;
+		.card{
+			margin-bottom: 2em;
+			padding-top: 20em;
+
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: cover;
+			.info{
+				padding: 1em 2em;
+				border-top: 3px solid transparent;
+				border-image: linear-gradient(90deg, $accent 0%, transparent 0%) 1;
+
+				background-color: color($primary--dark a(60%));
+				.title-album{
+					margin-bottom: .5em;
+
+					color: $text-white;
+					.title{
+						font-size: 1.5em;
+					}
+					.album{
+						font-size: 1.3em;
+
+						margin-left: .5em;
+
+						color: $text-white--secondary;
+					}
+				}
+				.artist{
+					font-size: 1.2em;
+
+					color: $text-white--hint;
+				}
+			}
+		}
+		.control{
+			$lengthSize: 65px;
+			@mixin card;
+			@mixin shadow-1;
+			.controls{
+				lost-utility: clearfix;
+				.v-d, .v-u{
+					lost-column: 1/5;
+					padding-top: .8em;
+					div{
+						font-size: 1.5em;
+						cursor: pointer;
+						&[disabled]{
+							color: $text--hint;
+							cursor: default;
+						}
+					}
+				}
+				.play{
+					lost-column: 3/5;
+
+					text-align: center;
+					button{
+						@mixin button-accent;
+						@mixin button-pop;
+						@mixin button-big;
+						@mixin shadow-2;
+						@mixin shadow-pop-2;
+						border-radius: 50%;
+					}
+				}
+			}
+		}
+	}
+	#fields{
+		lost-column: 2/3;
+		.form-control{
+			margin-bottom: 1.25em;
+		}
+		.half{
+			lost-utility: clearfix;
+			.item{
+				lost-column: 1/2;
+			}
+		}
+		#lyrics{
+			min-height: 250px;
+
+			resize: vertical;
+		}
+		#btnCover{
+			@mixin button-primary;
+			display: block;
+			width: 100%;
+		}
+		.save{
+			button{
+				width: 100%;
+				@mixin button-accent;
+				@mixin button-big;
+				@mixin button-pop;
+				@mixin shadow-1;
+				@mixin shadow-pop-1;
+			}
+		}
+	}
+}
+@media (--xs){
+	#editor{	
+		#media, #fields{
+			lost-column: 1/1;
+		}
+		#media{
+			margin-bottom: 3em;
+		}
+	}
+}

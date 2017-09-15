@@ -1,0 +1,185 @@
+@define-mixin shadow-1 {
+	box-shadow: 0 3px 10px 1px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+}
+
+@define-mixin shadow-2 {
+	box-shadow: 0 7px 14px 1px rgba(50, 50, 93, .16), 0 5px 8px rgba(0, 0, 0, .1);
+}
+
+@define-mixin shadow-3 {
+	box-shadow: 0 11px 18px 2px rgba(50, 50, 93, .16), 0 5px 8px rgba(0, 0, 0, .15);
+}
+
+@define-mixin shadow-pop-1 {
+	transition: all 300ms cubic-bezier(.25, .8, .25, 1);
+	&:hover,
+	&:focus {
+
+		box-shadow: 0 11px 18px 2px rgba(50, 50, 93, .16), 0 5px 8px rgba(0, 0, 0, .15);
+	}
+}
+
+@define-mixin shadow-pop-2 {
+	transition: all 300ms cubic-bezier(.25, .8, .25, 1);
+	&:hover,
+	&:focus {
+		box-shadow: 0 15px 22px 3px rgba(50, 50, 93, .2), 0 7px 10px rgba(0, 0, 0, .18);
+
+	}
+}
+
+@define-mixin shadow-pop-3 {
+	transition: all 300ms cubic-bezier(.25, .8, .25, 1);
+	&:hover,
+	&:focus {
+		box-shadow: 0 19px 26px 4px rgba(50, 50, 93, .23), 0 9px 12px rgba(0, 0, 0, .2);
+
+	}
+}
+
+@define-mixin card {
+	padding: 1em 2em;
+
+	border-radius: 4px;
+	background-color: #fff;
+	h2 {
+		font-weight: 300;
+
+		margin-bottom: 1em;
+
+		color: $text--secondary;
+	}
+}
+
+@define-mixin button {
+	padding: .5em 1em;
+
+	cursor: pointer;
+	text-decoration: none;
+
+	border: none;
+	border-radius: 4px;
+	font-size: 1em;
+	transition: color 150ms, background-color 150ms linear;
+	&:focus {
+		outline: none;
+	}
+	&[disabled] {
+		cursor: default !important;
+
+		color: $text--hint !important;
+		&,
+		&:hover,
+		&:active {
+			transform: translateY(0);
+
+			box-shadow: none;
+		}
+	}
+}
+
+@define-mixin button-small {
+	font-size: 0.8em;
+}
+
+@define-mixin button-big {
+	font-size: 1.2em;
+}
+
+@define-mixin button-pop {
+	&:hover,
+	&:focus {
+		transform: translateY(-1px);
+	}
+	&:active {
+		transform: translateY(1px);
+	}
+}
+
+@define-mixin button-style $bg,
+$bg-hover,
+$bg-active,
+$cl: color(#fff a(90%)),
+$cl-hover: #fff,
+$cl-active: #fff {
+	font-weight: 600;
+	line-height: 1.6;
+
+	letter-spacing: .025em;
+
+	color: $cl;
+	background-color: $bg;
+	@mixin button;
+	&:hover,
+	&:focus {
+		color: $cl-hover;
+		background-color: $bg-hover;
+	}
+	&:active {
+		color: $cl-active;
+		background-color: $bg-active;
+		box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+	}
+	&[disabled] {
+		color: $text--hint !important;
+		&,
+		&:hover {
+			background-color: color($bg shade(3%));
+		}
+	}
+}
+
+@define-mixin button-default {
+	@mixin button-style #fff,
+	#fff,
+	$gray--light,
+	$primary,
+	$primary--light,
+	$primary--dark;
+}
+
+@define-mixin button-default--accent {
+	@mixin button-style #fff,
+	#fff,
+	$gray--light,
+	$accent,
+	$accent--light,
+	$accent--dark;
+}
+
+@define-mixin button-primary {
+	@mixin button-style $primary,
+	$primary--light,
+	$primary--dark;
+}
+
+@define-mixin button-accent {
+	@mixin button-style $accent,
+	$accent--light,
+	$accent--dark;
+}
+
+@define-mixin button-red {
+	@mixin button-style $red,
+	$red--light,
+	$red--dark;
+}
+
+@define-mixin button-green {
+	@mixin button-style $green,
+	$green--light,
+	$green--dark;
+}
+
+
+@define-mixin button-blue {
+	@mixin button-style $blue,
+	$blue--light,
+	$blue--dark;
+}
+
+@define-mixin button-pink {
+	@mixin button-style $pink,
+	$pink--light,
+	$pink--dark;
+}

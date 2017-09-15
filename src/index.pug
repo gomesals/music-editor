@@ -1,0 +1,83 @@
+doctype
+html(lang="en")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		title Music Editor
+		link(rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
+	body(data-ng-app="musicApp")
+		nav
+			.title(title="Music Editor") Music Editor
+			.about
+				a(href="https://github.com/silvalexandre/music-editor/" target="_blank" title="About") About
+		main(data-ng-controller="musicCtrl as music")
+			input#file.hide(type="file" accept="audio/mpeg" onchange="angular.element(this).scope().music.change(this)")
+			.noFile(data-ng-hide="music.actions.hasFile")
+				.title To edit the tags, first open a file.
+				label(for="file")
+					span Open file
+			.changeFile(data-ng-show="music.actions.hasFile")
+				label(for="file")
+					span Open another file
+			section#editor(data-ng-show="music.actions.hasFile")
+				#media
+					.card#spic
+						.info#crlt
+							.title-album
+								span.title {{music.song.title}}
+								span.album {{music.song.album}}
+							.artist by {{music.song.artist}}
+					.control
+						audio#play Your browser does not support the audio element.
+						.controls
+							.v-d
+								.ion-volume-low(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0")
+							.play
+								.buttons-container
+									button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
+										span.ion-play
+									button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
+										span.ion-pause
+							.v-u
+								.ion-volume-high(data-ng-click="music.volume(true)" title="Volume Up" data-ng-disabled="music.actions.vol === 10")
+				#fields
+					.form-control
+						label(for="title") Title
+						input#title.input(type="text" data-ng-model="music.song.title" placeholder="Title")
+					.form-control
+						label(for="artist") Artist
+						input#artist.input(type="text" data-ng-model="music.song.artist" placeholder="Artist")
+					.form-control
+						label(for="album") Album
+						input#album.input(type="text" data-ng-model="music.song.album" placeholder="Album")
+					.half
+						.item
+							.form-control
+								label(for="year") Year
+								input#year.input(type="text" placeholder="Year" data-ng-model="music.song.year" maxlength="4")
+						.item
+							.form-control
+								label(for="track") Track
+								input#track.input(type="text" data-ng-model="music.song.track" placeholder="Track")
+					.form-control
+						label(for="genre") Genre
+						input#genre.input(type="text" data-ng-model="music.song.genre" placeholder="Genre")
+
+					.form-control
+						label(for="lyrics") Lyrics
+						textarea#lyrics.input(placeholder="Lyrics" data-ng-model="music.song.lyrics")
+					.form-control
+						label#lblCover(for="cover") Cover image
+						button#btnCover(title="Select cover image" type="button" data-ng-click="music.openCover()") Select cover image
+						input#cover.hide(type="file" data-ng-model="music.song.cover" accept="image/*" onchange="angular.element(this).scope().music.changeCover(this)")
+					.form-control
+						.save
+							button(type="button" data-ng-click="music.save()") Save tags &amp; Download
+		//- script(src="http://localhost:8000/js/saver.min.js")
+		//- script(src="http://localhost:8000/js/id3-writer.min.js")
+		//- script(src="http://localhost:8000/js/id3.min.js")
+		script(src="js/saver.min.js")
+		script(src="js/id3-writer.min.js")
+		script(src="js/id3.min.js")
+		script(src="js/app.min.js")

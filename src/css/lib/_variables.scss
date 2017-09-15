@@ -1,0 +1,27 @@
+$text:					rgba(0,0,0,.87);
+$text--secondary:		rgba(0,0,0,.54);
+$text--hint:			rgba(0,0,0,.38);
+$divider:				rgba(0,0,0,.12);
+
+$text-white: 			rgba(255,255,255,1);
+$text-white--secondary:	rgba(255,255,255,.7);
+$text-white--hint:		rgba(255,255,255,.5);
+$divider-white: 		rgba(255,255,255,.12);
+
+$background-color:	#e9ecef;
+$primary:			#495057;
+$primary--light:	#adb5bd;
+$primary--dark:		#212529;
+$accent:			#f76707;
+$accent--light:		#ff922b;
+$accent--dark:		#d9480f;
+$gray:				#e9ecef;
+$gray--light:		#F9F7FF;
+$gray--dark:		#212529;
+
+@custom-media --xs (max-width: 767px);
+@custom-media --sm-min (min-width: 768px);
+@custom-media --sm-max (max-width: 991px);
+@custom-media --md-min (min-width: 992px);
+@custom-media --md-max (max-width: 1199px);
+@custom-media --lg (min-width: 1200px);

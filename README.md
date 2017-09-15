@@ -1,2 +1,3 @@
 # music-editor
-Simple app to change mp3 tags without upload/download through browser.
+
+Simple app to edit mp3 tags through the browser without upload/download.

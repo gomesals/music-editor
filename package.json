@@ -1,32 +1,41 @@
 {
-  "name": "musicEditor",
-  "version": "1.0.0",
-  "description": "Music tag editor",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "music",
-    "tag",
-    "editor",
-    "javascript",
-    "node",
-    "chromeos",
-    "chromebook"
-  ],
-  "author": "Alexandre Silva <contato@silvalexandre.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "grunt": "^1.0.1",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-pug": "^1.0.0",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-sass": "^1.2.1",
-    "load-grunt-tasks": "^3.5.2"
-  },
-  "dependencies": {}
+	"name": "music-editor",
+	"version": "2.0.0",
+	"description": "Simple offline webapp music tag editor",
+	"main": "index.js",
+	"repository": "https://github.com/silvalexandre/music-editor.git",
+	"author": "Alexandre Silva <contato@silvalexandre.com>",
+	"license": "MIT",
+	"private": false,
+	"scripts": {
+		"webpack": "webpack --progress --colors",
+		"server": "webpack-dev-server --progress --colors"
+	},
+	"keywords": ["music tag editor", "mp3 tag editor", "javascript mp3 tag editor"],
+	"devDependencies": {
+		"babel-core": "^6.26.0",
+		"babel-loader": "^7.1.2",
+		"babel-preset-env": "^1.6.0",
+		"css-loader": "^0.28.7",
+		"cssnano": "^3.10.0",
+		"extract-text-webpack-plugin": "^3.0.0",
+		"html-webpack-plugin": "^2.30.1",
+		"lost": "^8.2.0",
+		"postcss-cssnext": "^3.0.2",
+		"postcss-loader": "^2.0.6",
+		"postcss-scss": "^1.0.2",
+		"postcss-strip-inline-comments": "^0.1.5",
+		"precss": "^2.0.0",
+		"pug": "^2.0.0-rc.4",
+		"pug-loader": "^2.3.0",
+		"remove": "^0.1.5",
+		"style-loader": "^0.18.2",
+		"webpack": "^3.5.6",
+		"webpack-dev-middleware": "^1.12.0",
+		"webpack-dev-server": "^2.8.2",
+		"webpack-hot-middleware": "^2.19.1"
+	},
+	"dependencies": {
+		"angular": "^1.6.6"
+	}
 }

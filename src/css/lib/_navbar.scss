@@ -1,0 +1,36 @@
+nav{
+	padding: 2em;
+
+	text-transform: uppercase;
+
+	color: $text-white;
+	background-color: $primary--dark;
+
+	lost-utility: clearfix;
+	.title{
+		font-weight: 500;
+
+		float: left;
+
+		transition: color 150ms linear;
+
+		color: $text-white--hint;
+		&:hover{
+			color: $text-white;
+		}
+	}
+	.about{
+		float: right;
+		a{
+			font-weight: 300;
+
+			transition: color 150ms linear;
+			text-decoration: none;
+
+			color: $text-white--secondary;
+			&:hover{
+				color: $accent;
+			}
+		}
+	}
+}
