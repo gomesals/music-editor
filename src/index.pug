@@ -19,7 +19,7 @@ html
 			section#editor
 				#media
 					.card(style="background-image: url('https://upload.wikimedia.org/wikipedia/en/3/3b/Stone_sour.jpg')")
-						.info
+						.info#crlt
 							.title-album
 								span.title {{music.song.title}}
 								span.album {{music.song.album}}
@@ -27,8 +27,16 @@ html
 					.control
 						audio#play Your browser does not support the audio element.
 						.play
-							button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false") &gt;
-							button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false") |&nbsp;|
+							//- .length-container
+								.length
+									#cur1
+										#cur2
+											#cur3
+										#cur4
+											#cur5
+							.buttons-container
+								button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false") &gt;
+								button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false") ||
 						.volume
 							.v-d
 								button(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0") d

@@ -26,7 +26,7 @@ function musicCtrl($scope) {
 		const reader = new FileReader();
 		const file = inputFile.files[0];
 		clearInterval(position);
-		clearTime();
+		vm.clearTime();
 		vm.actions.play = false;
 		$scope.$apply();
 		document.getElementById('play').pause();
@@ -50,7 +50,7 @@ function musicCtrl($scope) {
 			clearInterval(position);
 		} else {
 			document.getElementById('play').play();
-			position = setInterval(currentTime, 1000);
+			position = setInterval(vm.currentTime, 1000);
 		}
 		vm.actions.play = !vm.actions.play;
 	}
@@ -62,13 +62,20 @@ function musicCtrl($scope) {
 		}
 		document.getElementById('play').volume = (vm.actions.vol > 0 ? vm.actions.vol / 10 : 0);
 	}
-}
-
-function currentTime() {
-	console.log('currentTime');
-}
-
-function clearTime() {
-	console.log('clearTime');
+	vm.currentTime = () => {
+		const play = document.getElementById('play');
+		if (play.ended) {
+			clearInterval(position);
+			vm.clearTime();
+			vm.actions.play = false;
+			$scope.$apply();
+		} else {
+			const percent = Math.round((play.currentTime / play.duration) * 100);
+			document.getElementById('crlt').style.borderImage = `linear-gradient(90deg, #f76707 ${percent}%, transparent 0%) 1`;
+		}
+	};
+	vm.clearTime = () => {
+		document.getElementById('crlt').style.borderImage = `linear-gradient(90deg, #f76707 0%, transparent 0%) 1`;
+	};
 }
 musicCtrl.$inject = ['$scope'];
