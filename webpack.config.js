@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	entry: './src/index',
 	output: {
@@ -19,6 +20,16 @@ module.exports = {
 					importLoaders: 1
 				}
 			}, 'postcss-loader']
-		}]
-	}
+		}, {
+			test: /\.pug$/,
+			exclude: /node_modules/,
+			loader: "pug-loader",
+		}, ],
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			hash: true,
+			template: './src/index.pug',
+		}),
+	],
 };
