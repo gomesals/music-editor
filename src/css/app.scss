@@ -148,3 +148,13 @@ main{
 		}
 	}
 }
+@media (--xs){
+	#editor{	
+		#media, #fields{
+			lost-column: 1/1;
+		}
+		#media{
+			margin-bottom: 3em;
+		}
+	}
+}
