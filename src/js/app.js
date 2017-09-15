@@ -100,6 +100,39 @@ function musicCtrl($scope) {
 			reader.readAsDataURL(file.files[0]);
 		}
 	};
+	vm.save = () => {
+		const songReader = new FileReader();
+		songReader.onload = () => {
+			const cover = document.getElementById('cover');
+			if (cover.files.length > 0) {
+				const coverReader = new FileReader();
+				coverReader.onload = () => {
+					vm.write(songReader, coverReader);
+				}
+				coverReader.onerror = () => {
+					alert('Error saving the file');
+					console.log('Cover error', coverReader.error);
+				}
+				coverReader.readAsArrayBuffer(cover.files[0]);
+			} else {
+				vm.write(songReader);
+			}
+		}
+		songReader.onerror = () => {
+			alert('Error saving the file');
+			console.log('Song error', coverReader.error);
+		}
+		songReader.readAsArrayBuffer(document.getElementById('file').files[0])
+	};
+	vm.write = (songReader, coverReader) => {
+		const writer = new ID3Writer(songReader.result);
+		writer.setFrame('TIT2', vm.song.title).setFrame('TPE1', vm.song.artist.split(',')).setFrame('TALB', vm.song.album).setFrame('TYER', vm.song.year).setFrame('TRCK', vm.song.track).setFrame('TCON', vm.song.genre.split(',')).setFrame('USLT', vm.song.lyrics);
+		if (coverReader) {
+			writer.setFrame('APIC', coverReader.result);
+		}
+		writer.addTag();
+		saveAs(writer.getBlob(), `${songFile}_tagged.mp3`);
+	};
 	vm.currentTime = () => {
 		const play = document.getElementById('play');
 		if (play.ended) {
