@@ -50,7 +50,7 @@ main{
 			background-size: cover;
 			.info{
 				padding: 1em 2em;
-				border-top: 2px solid transparent;
+				border-top: 3px solid transparent;
 				border-image: linear-gradient(90deg, $accent 0%, transparent 0%) 1;
 
 				background-color: color($primary--dark a(60%));
@@ -80,23 +80,11 @@ main{
 			$lengthSize: 65px;
 			@mixin card;
 			@mixin shadow-1;
-			.play{
-				margin-bottom: 2em;
-
-				text-align: center;
-				button{
-					@mixin button-accent;
-					@mixin button-pop;
-					@mixin button-big;
-					@mixin shadow-2;
-					@mixin shadow-pop-2;
-					border-radius: 50%;
-				}
-			}
-			.volume{
+			.controls{
 				lost-utility: clearfix;
 				.v-d, .v-u{
 					lost-column: 1/5;
+					padding-top: .8em;
 					div{
 						font-size: 1.5em;
 						cursor: pointer;
@@ -106,15 +94,18 @@ main{
 						}
 					}
 				}
-				.v-d{
-				}
-				.v-s{
+				.play{
 					lost-column: 3/5;
-					input{
-						width: 100%;
+
+					text-align: center;
+					button{
+						@mixin button-accent;
+						@mixin button-pop;
+						@mixin button-big;
+						@mixin shadow-2;
+						@mixin shadow-pop-2;
+						border-radius: 50%;
 					}
-				}
-				.v-u{
 				}
 			}
 		}

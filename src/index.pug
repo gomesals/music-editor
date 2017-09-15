@@ -30,17 +30,15 @@ html(lang="en")
 							.artist by {{music.song.artist}}
 					.control
 						audio#play Your browser does not support the audio element.
-						.play
-							.buttons-container
-								button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
-									span.ion-play
-								button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
-									span.ion-pause
-						.volume
+						.controls
 							.v-d
 								.ion-volume-low(data-ng-click="music.volume(false)" title="Volume Down" data-ng-disabled="music.actions.vol === 0")
-							.v-s
-								input(type="range" min="0" max="10" step="1" title="Change Volume" data-ng-model="music.actions.vol")
+							.play
+								.buttons-container
+									button(title="Play" data-ng-click="music.playPause()" data-ng-hide="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
+										span.ion-play
+									button(title="Pause" data-ng-click="music.playPause()" data-ng-show="music.actions.play" data-ng-disabled="music.actions.hasFile === false")
+										span.ion-pause
 							.v-u
 								.ion-volume-high(data-ng-click="music.volume(true)" title="Volume Up" data-ng-disabled="music.actions.vol === 10")
 				#fields
@@ -79,4 +77,4 @@ html(lang="en")
 		script(src="http://localhost:8000/js/saver.min.js")
 		script(src="http://localhost:8000/js/id3-writer.min.js")
 		script(src="http://localhost:8000/js/id3.min.js")
-		//- script(src="js/app.min.js")	
+		script(src="js/app.min.js")
