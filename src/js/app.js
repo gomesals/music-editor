@@ -3,7 +3,7 @@ angular.module('musicApp', []).controller('musicCtrl', musicCtrl);
 let position;
 let songFile;
 
-function musicCtrl() {
+function musicCtrl($scope) {
 	const vm = this;
 	vm.song = {
 		artist: 'Stone Sour',
@@ -25,19 +25,21 @@ function musicCtrl() {
 		if (!inputFile.files.length) return false;
 		const reader = new FileReader();
 		const file = inputFile.files[0];
-		// TODO: change actions.hasFile to true, actions.play to false;
 		clearInterval(position);
 		clearTime();
 		vm.actions.play = false;
+		$scope.$apply();
 		document.getElementById('play').pause();
 		reader.onload = e => {
 			vm.actions.hasFile = true;
+			$scope.$apply();
 			songFile = file.name.split('.')[0];
 			document.getElementById('play').setAttribute('src', e.target.result);
 		};
 		reader.onerror = () => {
 			vm.actions.hasFile = false;
-			alert('Song Reader play error');
+			$scope.$apply();
+			alert('Error playing the file.');
 			console.log(reader.error);
 		};
 		reader.readAsDataURL(file);
@@ -69,4 +71,4 @@ function currentTime() {
 function clearTime() {
 	console.log('clearTime');
 }
-musicCtrl.$inject = [];
+musicCtrl.$inject = ['$scope'];
