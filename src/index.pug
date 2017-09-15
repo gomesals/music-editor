@@ -8,9 +8,12 @@ html
 			.about
 				a(href="#" title="About") About
 		main
+			input#file(type="file", accept="audio/mpeg")
 			.noFile
-				input#file(type="file", accept="audio/mpeg")
 				.title To edit the tags, first open a file.
 				label(for="file")
 					span Open file
+			.changeFile
+				label(for="fille")
+					span Open another file
 		script(src="js/app.js")

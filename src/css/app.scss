@@ -1,9 +1,18 @@
 @import "lib/_default.scss";
+
+input#file{
+	display: none;
+}
+main{
+	margin-right: 10vw;
+	margin-left: 10vw;
+}
 .noFile{
+	display: none; // TODO: remove
+
+	margin-top: 5em;
+
 	text-align: center;
-	input{
-		display: none;
-	}
 	.title{
 		font-size: 2em;
 
@@ -13,6 +22,18 @@
 		display: inline-block;
 		@mixin button-accent;
 		@mixin button-big;
+		@mixin button-pop;
+		@mixin shadow-1;
+		@mixin shadow-pop-1;
+	}
+}
+.changeFile{
+	margin-top: 2em;
+
+	text-align: right;
+	label{
+		display: inline-block;
+		@mixin button-accent;
 		@mixin button-pop;
 		@mixin shadow-1;
 		@mixin shadow-pop-1;
