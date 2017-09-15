@@ -9,19 +9,14 @@ $text-white--hint:		rgba(255,255,255,.5);
 $divider-white: 		rgba(255,255,255,.12);
 
 $background-color:	#FFF;
-$primary:			#15aabf;
-$primary:			#1098ad;
-$primary:			#1c7cd6;
-$accent:			#6741d9;
-$accent--light:		#7048e8;
-$accent--dark:		#5f3dc4;
+$primary:			#495057;
+$primary--light:	#adb5bd;
+$primary--dark:		#212529;
+$accent:			#f76707;
+$accent--light:		#ff922b;
+$accent--dark:		#d9480f;
 $gray--light:		#F9F7FF;
 $gray--dark:		#212529;
-
-$mixed:				#3A3FA2;
-$mixed--light:		#3053B3;
-$mixed--dark:		#403177;
-$mixed--dark:		#2E3382;
 
 @custom-media --xs (max-width: 767px);
 @custom-media --sm-min (min-width: 768px);
